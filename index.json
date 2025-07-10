@@ -1,69 +1,69 @@
 [
 {
-	"uri": "/1-introduce/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/1-introduce/",
 	"title": "Introduction",
 	"tags": [],
 	"description": "",
 	"content": "Amazon Aurora Global Database is a feature of Amazon Aurora that enables a single Aurora database to span multiple AWS regions. It provides fast local reads in each region and disaster recovery from region-wide outages.\nAurora Global Database uses dedicated infrastructure to replicate your data, leaving database resources available entirely for serving application workloads. On average, Global Database replicates data with typical latency of less than 1 second.\nBy using Aurora Global Database, you get the following advantages:\nGlobal reads with local latency: You can serve read traffic from the AWS Region closest to your users with typical latency of less than 1 second. Scalable secondary Aurora clusters: You can add up to 5 secondary regions, and each secondary cluster can have up to 16 Aurora Replica instances. Fast replication: Aurora Global Database uses dedicated infrastructure that leaves your database fully available to serve application workloads. Recovery from region-wide outages: The secondary clusters enable fast failover for disaster recovery. You can typically promote a secondary cluster and make it available for writes in less than 1 minute. Highly available: Aurora Global Database provides higher availability than a single-region deployment. Key Components: Primary cluster: The Aurora cluster in your primary AWS Region where your data is mastered. This cluster can perform both read and write operations. Secondary cluster: An Aurora cluster in a different AWS Region than the primary cluster. The secondary cluster supports only read operations. Global database: The global database contains the primary cluster and up to five secondary clusters. With Aurora Global Database, you can build globally distributed applications without the complexity of managing database replication.\n"
 },
 {
-	"uri": "/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/",
 	"title": "RDS Multi-Master Aurora with Global Database",
 	"tags": [],
 	"description": "",
 	"content": "Work with Amazon RDS Aurora Global Database Overall In this lab, you\u0026rsquo;ll learn the basics and practice of Amazon RDS Aurora Global Database. You will create a multi-region Aurora cluster with Global Database for high availability and disaster recovery, deploy applications across multiple regions, and test failover scenarios.\nContent Introduction Prerequisites Create Primary Aurora Cluster Create Global Database Deploy Application Test Failover Clean up resources "
 },
 {
-	"uri": "/2-prerequiste/2.1-createvpc/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.1-createvpc/",
 	"title": "Create VPC",
 	"tags": [],
 	"description": "",
 	"content": "Create VPC Lab VPC Go to VPC service management console Click Your VPC. Click Create VPC. At the Create VPC page. In the Name tag field, enter Lab VPC. In the IPv4 CIDR field, enter: 10.10.0.0/16. Click Create VPC. "
 },
 {
-	"uri": "/2-prerequiste/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/",
 	"title": "Prerequisites",
 	"tags": [],
 	"description": "",
 	"content": "\rYou need to create VPC infrastructure and EC2 instances in two different AWS regions to perform this workshop. We will use ap-southeast-1 (Singapore) as the primary region and us-west-2 (Oregon) as the secondary region.\nTo understand how to create EC2 instances and VPC with public/private subnets, you can refer to these labs:\nIntroduction to Amazon EC2 Working with Amazon VPC In this preparation section, we will create the necessary infrastructure for Aurora Global Database including:\nVPC and networking components in both regions EC2 instances for application deployment Security groups for database and application access IAM roles for Aurora and application services Content Prepare VPC and EC2 Instances Create IAM Roles "
 },
 {
-	"uri": "/2-prerequiste/2.2-createsg/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.2-createsg/",
 	"title": "Create VPC",
 	"tags": [],
 	"description": "",
 	"content": "Create VPC Lab VPC Go to VPC service management console Click Your VPC. Click Create VPC. At the Create VPC page. In the Name tag field, enter Lab VPC. In the IPv4 CIDR field, enter: 10.10.0.0/16. Click Create VPC. "
 },
 {
-	"uri": "/3-primary-cluster/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/3-primary-cluster/",
 	"title": "Create Primary Aurora Cluster",
 	"tags": [],
 	"description": "",
 	"content": "In this step, we will create the primary Aurora cluster in the ap-southeast-1 (Singapore) region. This cluster will serve as the master database for our Global Database setup.\nThe primary Aurora cluster will handle both read and write operations and will be the source of truth for data replication to secondary regions.\nWhat we will create: DB Subnet Group - Define which subnets Aurora can use Security Group - Control network access to the Aurora cluster Aurora MySQL Cluster - The primary database cluster with: Aurora Serverless v2 for automatic scaling Multi-AZ deployment for high availability Enhanced monitoring enabled Backup retention configured Key Configuration: Engine: Aurora MySQL Compatible Version: Latest available Instance Class: Serverless v2 (auto-scaling from 2 to 16 ACUs) Storage: Aurora Standard Multi-AZ: Enabled with reader instance in different AZ Backup: 7 days retention Monitoring: Enhanced monitoring enabled Let\u0026rsquo;s start by creating the necessary components for our primary Aurora cluster.\n"
 },
 {
-	"uri": "/4-global-database/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/4-global-database/",
 	"title": "Create Global Database",
 	"tags": [],
 	"description": "",
 	"content": "In this step, we will create an Aurora Global Database by adding our primary cluster to a global database and then creating a secondary cluster in the us-west-2 (Oregon) region.\nAurora Global Database enables fast local reads in multiple regions and provides disaster recovery capabilities with typical replication lag of less than 1 second.\nWhat we will do: Create Global Database - Convert our primary cluster to be part of a global database Add Secondary Region - Create a secondary cluster in us-west-2 region Configure Cross-Region Replication - Set up automatic data replication Test Connectivity - Verify both clusters are working correctly Global Database Architecture: Primary Region (ap-southeast-1) Secondary Region (us-west-2) ┌─────────────────────────────┐ ┌─────────────────────────────┐ │ Primary Aurora Cluster │ │ Secondary Aurora Cluster │ │ ┌─────────────────────────┐│ │ ┌─────────────────────────┐│ │ │ Writer Instance ││ ====\u0026gt; │ │ Reader Instance ││ │ └─────────────────────────┘│ │ └─────────────────────────┘│ │ ┌─────────────────────────┐│ │ ┌─────────────────────────┐│ │ │ Reader Instance ││ │ │ Reader Instance ││ │ └─────────────────────────┘│ │ └─────────────────────────┘│ └─────────────────────────────┘ └─────────────────────────────┘ Key Features: Fast Replication: Data is replicated across regions with typical latency of less than 1 second Read Scaling: Each secondary region can have up to 16 read replicas Disaster Recovery: Quick failover capability (typically less than 1 minute) Global Reads: Serve read traffic from the region closest to your users Let\u0026rsquo;s start creating our Global Database setup.\n"
 },
 {
-	"uri": "/5-deploy-app/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/5-deploy-app/",
 	"title": "Deploy Application",
 	"tags": [],
 	"description": "",
 	"content": "In this step, we will deploy a sample Java Spring Boot application that demonstrates how to work with Aurora Global Database. The application will be deployed in both regions to showcase global read capabilities.\nOur application will be configured to:\nWrite to the primary cluster in ap-southeast-1 Read from the local cluster in each region for optimal performance Handle database connections with proper failover logic Application Architecture: ┌─────────────────────────────────────────────────────────────────────┐ │ Global Application │ ├─────────────────────────────┬───────────────────────────────────────┤ │ Primary Region │ Secondary Region │ │ (ap-southeast-1) │ (us-west-2) │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ Load Balancer │ │ │ Load Balancer │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ │ │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ EC2 Instances │ │ │ EC2 Instances │ │ │ │ (Java App) │ │ │ (Java App) │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ │ │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ Primary Aurora │ │ │ Secondary Aurora │ │ │ │ (Read/Write) │ │ │ (Read Only) │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ └─────────────────────────────┴───────────────────────────────────────┘ What we will do: Configure Application Properties - Set up database connections for both regions Deploy to Primary Region - Install and configure the application in ap-southeast-1 Deploy to Secondary Region - Install and configure the application in us-west-2 Set up Load Balancers - Create ALB in both regions for high availability Test Global Reads - Verify the application can read from local clusters Test Write Operations - Confirm writes go to the primary cluster Application Features: English Learning Platform: A sample application for learning English Multi-Region Support: Configured to work with Aurora Global Database Read/Write Separation: Optimized for global read performance Health Checks: Built-in health monitoring for load balancers Auto Scaling: Configured with Auto Scaling Groups Let\u0026rsquo;s start deploying our application across both regions.\n"
 },
 {
-	"uri": "/categories/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "/tags/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",

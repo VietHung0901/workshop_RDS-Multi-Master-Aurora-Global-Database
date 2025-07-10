@@ -1,90 +1,90 @@
 [
 {
-	"uri": "/vi/1-introduce/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/",
 	"title": "Giới thiệu",
 	"tags": [],
 	"description": "",
 	"content": "Amazon Aurora Global Database là một tính năng của Amazon Aurora cho phép một cơ sở dữ liệu Aurora duy nhất có thể mở rộng trên nhiều AWS region. Nó cung cấp khả năng đọc nhanh tại từng vùng và khôi phục thảm họa từ các sự cố toàn vùng.\nAurora Global Database sử dụng cơ sở hạ tầng chuyên dụng để sao chép dữ liệu của bạn, để lại tài nguyên cơ sở dữ liệu hoàn toàn có sẵn để phục vụ khối lượng công việc của ứng dụng. Trung bình, Global Database sao chép dữ liệu với độ trễ điển hình dưới 1 giây.\nBằng cách sử dụng Aurora Global Database, bạn sẽ có được những ưu điểm sau:\nĐọc toàn cầu với độ trễ cục bộ: Bạn có thể phục vụ lưu lượng đọc từ AWS Region gần nhất với người dùng của mình với độ trễ điển hình dưới 1 giây. Các Aurora cluster phụ có thể mở rộng: Bạn có thể thêm tối đa 5 vùng phụ, và mỗi cluster phụ có thể có tối đa 16 Aurora Replica instance. Sao chép nhanh: Aurora Global Database sử dụng cơ sở hạ tầng chuyên dụng để cơ sở dữ liệu của bạn hoàn toàn có sẵn để phục vụ khối lượng công việc của ứng dụng. Khôi phục từ sự cố toàn vùng: Các cluster phụ cho phép failover nhanh để khôi phục thảm họa. Bạn thường có thể promote một cluster phụ và làm cho nó có sẵn để ghi trong vòng chưa đến 1 phút. Tính khả dụng cao: Aurora Global Database cung cấp tính khả dụng cao hơn so với triển khai một vùng duy nhất. Các thành phần chính: Primary cluster: Aurora cluster trong AWS Region chính của bạn nơi dữ liệu được làm chủ. Cluster này có thể thực hiện cả hoạt động đọc và ghi. Secondary cluster: Aurora cluster trong một AWS Region khác với primary cluster. Secondary cluster chỉ hỗ trợ hoạt động đọc. Global database: Global database chứa primary cluster và tối đa năm secondary cluster. Với Aurora Global Database, bạn có thể xây dựng các ứng dụng phân tán toàn cầu mà không cần sự phức tạp của việc quản lý sao chép cơ sở dữ liệu.\n"
 },
 {
-	"uri": "/vi/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/",
 	"title": "RDS Multi-Master Aurora với Global Database",
 	"tags": [],
 	"description": "",
 	"content": "Làm việc với Amazon RDS Aurora Global Database Tổng quan Trong bài lab này, bạn sẽ tìm hiểu các khái niệm cơ bản và thực hành về Amazon RDS Aurora Global Database. Bạn sẽ tạo Aurora cluster đa vùng với Global Database để đảm bảo tính khả dụng cao và khôi phục thảm họa, triển khai ứng dụng trên nhiều vùng, và kiểm tra các tình huống failover.\nNội dung Giới thiệu Các bước chuẩn bị Tạo Primary Aurora Cluster Tạo Global Database Triển khai ứng dụng Kiểm tra Failover Dọn dẹp tài nguyên "
 },
 {
-	"uri": "/vi/3-primary-cluster/3.1-create-subnet-group/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-primary-cluster/3.1-create-subnet-group/",
 	"title": "Tạo DB Subnet Group",
 	"tags": [],
 	"description": "",
 	"content": "DB Subnet Group xác định các subnet mà Aurora cluster có thể sử dụng. Chúng ta cần tạo subnet group trong cả hai region.\nTạo DB Subnet Group cho Primary Region 1. Truy cập RDS Console Mở Amazon RDS Console Đảm bảo bạn đang ở region ap-southeast-1 (Singapore) 2. Tạo Subnet Group Trong navigation pane, chọn Subnet groups Click Create DB subnet group 3. Cấu hình Subnet Group Name: workshop-db-subnet-group-primary Description: DB subnet group for Aurora cluster in primary region VPC: Chọn workshop-vpc-primary 4. Add Subnets Availability Zones: Chọn ap-southeast-1a Chọn ap-southeast-1b Subnets: Chọn Private Subnet 3 (10.0.5.0/24) trong ap-southeast-1a Chọn Private Subnet 4 (10.0.6.0/24) trong ap-southeast-1b Aurora yêu cầu subnet group phải có ít nhất 2 subnet trong 2 Availability Zone khác nhau để đảm bảo tính khả dụng cao.\n5. Tạo Subnet Group Click Create để tạo DB subnet group Tạo DB Subnet Group cho Secondary Region Lặp lại các bước tương tự trong region us-west-2 với:\nName: workshop-db-subnet-group-secondary Description: DB subnet group for Aurora cluster in secondary region VPC: workshop-vpc-secondary Subnets: Chọn 2 private subnet dành cho Aurora trong us-west-2 Sau khi hoàn thành, bạn sẽ có DB subnet group trong cả hai region, sẵn sàng để tạo Aurora cluster.\n"
 },
 {
-	"uri": "/vi/2-prerequiste/2.1-createvpc/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-createvpc/",
 	"title": "Tạo VPC",
 	"tags": [],
 	"description": "",
 	"content": "Tạo VPC Bước 1: Truy cập giao diện VPC Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn Your VPCs. Nhấn Create VPC để bắt đầu tạo mới. Bước 2: Cấu hình VPC Tại trang Create VPC, điền thông tin cấu hình như sau:\nThông tin chung: Resource to create: VPC and more Name: workshop IPv4 CIDR block: 10.0.0.0/16 Tenancy: Default Cấu hình mạng: Number of Availability Zones: 2 Number of public subnets: 2 Number of private subnets: 4 Cấu hình bổ sung: NAT gateway: None VPC endpoints: None Sau khi điền đầy đủ thông tin, nhấn Create VPC.\nBước 3: Kiểm tra sơ đồ tài nguyên Sau khi tạo VPC thành công, bạn sẽ thấy sơ đồ các tài nguyên được tạo tự động:\nBước 4: Bật tính năng gán IP công tự động Sau khi tạo VPC, cần bật tự động gán địa chỉ IP công cho 2 public subnet:\nVào từng public subnet. Chọn Actions \u0026gt; Edit subnet settings. Bật tùy chọn Auto-assign IPv4 address. ✅ Hoàn tất: Bạn đã tạo xong một VPC cơ bản với 2 public subnet và 4 private subnet để sử dụng trong các bài lab tiếp theo.\n"
 },
 {
-	"uri": "/vi/2-prerequiste/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/",
 	"title": "Các bước chuẩn bị",
 	"tags": [],
 	"description": "",
 	"content": "\rBạn cần tạo sẵn cơ sở hạ tầng VPC và các EC2 instance trong hai AWS region khác nhau để thực hiện bài thực hành này. Chúng ta sẽ sử dụng ap-southeast-1 (Singapore) làm primary region và us-west-1 (N.Virginia) làm secondary region.\nĐể tìm hiểu cách tạo các EC2 instance và VPC với public/private subnet các bạn có thể tham khảo bài lab:\nGiới thiệu về Amazon EC2 Làm việc với Amazon VPC Trong phần chuẩn bị này, chúng ta sẽ tạo cơ sở hạ tầng cần thiết cho Aurora Global Database bao gồm:\nVPC và các thành phần mạng trong cả hai vùng EC2 instance để triển khai ứng dụng Security group cho database và ứng dụng Nội dung Chuẩn bị VPC EC2 Instance "
 },
 {
-	"uri": "/vi/3-primary-cluster/3.2-create-aurora-cluster/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-primary-cluster/3.2-create-aurora-cluster/",
 	"title": "Tạo Aurora Cluster",
 	"tags": [],
 	"description": "",
 	"content": "Bây giờ chúng ta sẽ tạo primary Aurora cluster trong region ap-southeast-1. Cluster này sẽ là nguồn chính cho Global Database.\nTạo Primary Aurora Cluster 1. Truy cập RDS Console Mở Amazon RDS Console Đảm bảo bạn đang ở region ap-southeast-1 (Singapore) Click Create database 2. Chọn Engine Engine type: Aurora (MySQL Compatible) Engine version: Chọn phiên bản mới nhất (ví dụ: Aurora MySQL 8.0.mysql_aurora.3.04.0) Templates: Dev/Test (để tiết kiệm chi phí) 3. Cấu hình Settings DB cluster identifier: workshop-aurora-cluster-primary Credentials Settings: Master username: admin Credentials management: Self managed Master password: Tạo password mạnh hoặc chọn Auto generate password 4. Cấu hình Instance DB instance class: Serverless v2 Capacity range: Minimum: 2 ACUs Maximum: 16 ACUs Aurora Serverless v2 tự động điều chỉnh capacity dựa trên workload, giúp tối ưu hóa chi phí và hiệu suất.\n5. Cấu hình Availability \u0026amp; Durability Multi-AZ deployment: Create an Aurora Replica or Reader node in a different AZ 6. Cấu hình Connectivity Compute resource: Don't connect to an EC2 compute resource Network type: IPv4 Virtual private cloud (VPC): workshop-vpc-primary DB subnet group: workshop-db-subnet-group-primary Public access: No VPC security group: Remove default security group Add workshop-sg-aurora-primary Database port: 3306 7. Cấu hình Database Authentication Database authentication: Password authentication 8. Cấu hình Monitoring Performance Insights: Enable Performance Insights Retention period: 7 days (Free tier) Enhanced monitoring: Enable enhanced monitoring Granularity: 60 seconds 9. Cấu hình Additional Initial database name: TiengAnhMoiNgay Backup retention period: 7 days Copy tags to snapshots: Enable Encryption: Enable encryption Log exports: Chọn Error log, General log, Slow query log 10. Tạo Database Review tất cả cấu hình Click Create database Quá trình tạo Aurora cluster có thể mất 10-15 phút. Hãy đợi cho đến khi cluster status chuyển thành Available trước khi tiếp tục.\nXác minh Aurora Cluster Sau khi cluster được tạo thành công:\nKiểm tra Cluster Status: Đảm bảo status là Available Ghi chú Endpoint: Lưu lại cluster endpoint và reader endpoint Kiểm tra Instances: Xác minh có 2 instances (1 writer, 1 reader) Kiểm tra Security Group: Đảm bảo security group được áp dụng đúng Cluster endpoint sẽ có dạng: workshop-aurora-cluster-primary.cluster-xxxxx.ap-southeast-1.rds.amazonaws.com\nBây giờ chúng ta đã có primary Aurora cluster sẵn sàng để tạo Global Database!\n"
 },
 {
-	"uri": "/vi/2-prerequiste/2.2-createsg/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-createsg/",
 	"title": "Tạo Security Group",
 	"tags": [],
 	"description": "",
 	"content": "Tạo Security Group Trong phần này, bạn sẽ tạo 2 Security Group để bảo vệ và phân quyền truy cập cho các EC2 instance: Bastion Host và Application Server thuộc vùng Primary.\n🔐 1. Security Group: workshop-sg-bastion-primary ✅ Mục đích: Cho phép SSH vào EC2 Bastion từ mọi địa chỉ IPv4. Cho phép ping ra internet. 🔧 Cấu hình Inbound: Type Protocol Port Range Source SSH TCP 22 Anywhere IPv4 (0.0.0.0/0) Custom ICMP - IPv4 ALL ALL Anywhere IPv4 (0.0.0.0/0) 🔧 Outbound: Giữ nguyên mặc định: Allow all outbound traffic. 📸 Minh họa cấu hình Security Group:\n🔐 2. Security Group: workshop-sg-server-primary ✅ Mục đích: Chỉ cho phép SSH từ EC2 Bastion (có Security Group là workshop-sg-bastion-primary). 🔧 Cấu hình Inbound: Type Protocol Port Range Source SSH TCP 22 Security group: workshop-sg-bastion-primary 📌 Lưu ý: Đây là cách cấu hình chỉ cho phép SSH nội bộ từ Bastion, không mở ra internet.\n🔧 Outbound: Giữ nguyên mặc định: Allow all outbound traffic. 📸 Minh họa cấu hình Security Group:\n✅ Hoàn tất: Bạn đã tạo xong Security Group cho Bastion và Server, sẵn sàng để cấu hình EC2 instance trong bước tiếp theo.\n"
 },
 {
-	"uri": "/vi/2-prerequiste/2.3-createnat/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.3-createnat/",
 	"title": "Tạo NAT gateway",
 	"tags": [],
 	"description": "",
 	"content": "Tạo NAT gateway 🎯 Mục tiêu: Thiết lập NAT Gateway để các EC2 trong private subnet (server) có thể truy cập internet và cài đặt các gói phần mềm cần thiết.\nGhi chú: NAT Gateway giúp các instance trong private subnet có thể truy cập internet mà không bị lộ địa chỉ IP công khai.\n🔹 Bước 1: Tạo Elastic IP Truy cập vào EC2 Console. Chọn Elastic IPs ở menu bên trái. Nhấn Allocate Elastic IP. Lưu lại Elastic IP để gán cho NAT Gateway ở bước tiếp theo. 📸 Minh họa:\n🔹 Bước 2: Tạo NAT Gateway Truy cập VPC Console \u0026gt; Chọn NAT Gateways. Nhấn Create NAT Gateway và cấu hình: Name: workshop-ngw-server-primary Subnet: workshop-subnet-public1-ap-southeast-1a Connectivity type: Public Elastic IP: chọn IP vừa tạo ở bước 1 📸 Minh họa:\n🔹 Bước 3: Cập nhật Route Table của Private Subnet Vào Route Tables. Chọn Route Table của server (ví dụ: rtb-server-private1). Nhấn Edit routes và thêm dòng: Destination: 0.0.0.0/0 Target: NAT Gateway (vừa tạo ở bước 2) 📸 Minh họa:\n✅ Hoàn tất: Server trong private subnet giờ đây có thể truy cập internet thông qua NAT Gateway.\n"
 },
 {
-	"uri": "/vi/3-primary-cluster/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-primary-cluster/",
 	"title": "Tạo Primary Aurora Cluster",
 	"tags": [],
 	"description": "",
 	"content": "Trong bước này, chúng ta sẽ tạo primary Aurora cluster trong vùng ap-southeast-1 (Singapore). Cluster này sẽ đóng vai trò là cơ sở dữ liệu chính cho thiết lập Global Database của chúng ta.\nPrimary Aurora cluster sẽ xử lý cả hoạt động đọc và ghi và sẽ là nguồn chính thực cho việc sao chép dữ liệu đến các vùng phụ.\nNhững gì chúng ta sẽ tạo: DB Subnet Group - Xác định subnet nào Aurora có thể sử dụng Security Group - Kiểm soát truy cập mạng đến Aurora cluster Aurora MySQL Cluster - Primary database cluster với: Aurora Serverless v2 để tự động mở rộng Triển khai Multi-AZ để có tính khả dụng cao Enhanced monitoring được bật Cấu hình backup retention Cấu hình chính: Engine: Aurora MySQL Compatible Version: Phiên bản mới nhất có sẵn Instance Class: Serverless v2 (tự động mở rộng từ 2 đến 16 ACU) Storage: Aurora Standard Multi-AZ: Được bật với reader instance trong AZ khác Backup: Lưu trữ 7 ngày Monitoring: Enhanced monitoring được bật Hãy bắt đầu bằng cách tạo các thành phần cần thiết cho primary Aurora cluster của chúng ta.\n"
 },
 {
-	"uri": "/vi/4-global-database/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-global-database/",
 	"title": "Tạo Global Database",
 	"tags": [],
 	"description": "",
 	"content": "Trong bước này, chúng ta sẽ tạo Aurora Global Database bằng cách thêm primary cluster của chúng ta vào global database và sau đó tạo secondary cluster trong vùng us-west-2 (Oregon).\nAurora Global Database cho phép đọc nhanh cục bộ trong nhiều vùng và cung cấp khả năng khôi phục thảm họa với độ trễ sao chép điển hình dưới 1 giây.\nNhững gì chúng ta sẽ làm: Tạo Global Database - Chuyển đổi primary cluster của chúng ta để trở thành một phần của global database Thêm Secondary Region - Tạo secondary cluster trong vùng us-west-2 Cấu hình Cross-Region Replication - Thiết lập sao chép dữ liệu tự động Kiểm tra kết nối - Xác minh cả hai cluster đều hoạt động chính xác Kiến trúc Global Database: Primary Region (ap-southeast-1) Secondary Region (us-west-2) ┌─────────────────────────────┐ ┌─────────────────────────────┐ │ Primary Aurora Cluster │ │ Secondary Aurora Cluster │ │ ┌─────────────────────────┐│ │ ┌─────────────────────────┐│ │ │ Writer Instance ││ ====\u0026gt; │ │ Reader Instance ││ │ └─────────────────────────┘│ │ └─────────────────────────┘│ │ ┌─────────────────────────┐│ │ ┌─────────────────────────┐│ │ │ Reader Instance ││ │ │ Reader Instance ││ │ └─────────────────────────┘│ │ └─────────────────────────┘│ └─────────────────────────────┘ └─────────────────────────────┘ Tính năng chính: Sao chép nhanh: Dữ liệu được sao chép qua các vùng với độ trễ điển hình dưới 1 giây Mở rộng đọc: Mỗi vùng phụ có thể có tối đa 16 read replica Khôi phục thảm họa: Khả năng failover nhanh (thường dưới 1 phút) Đọc toàn cầu: Phục vụ lưu lượng đọc từ vùng gần nhất với người dùng của bạn Hãy bắt đầu tạo thiết lập Global Database của chúng ta.\n"
 },
 {
-	"uri": "/vi/5-deploy-app/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-deploy-app/",
 	"title": "Triển khai ứng dụng",
 	"tags": [],
 	"description": "",
 	"content": "Trong bước này, chúng ta sẽ triển khai một ứng dụng Java Spring Boot mẫu để minh họa cách làm việc với Aurora Global Database. Ứng dụng sẽ được triển khai trong cả hai vùng để thể hiện khả năng đọc toàn cầu.\nỨng dụng của chúng ta sẽ được cấu hình để:\nGhi vào primary cluster trong ap-southeast-1 Đọc từ cluster cục bộ trong mỗi vùng để có hiệu suất tối ưu Xử lý kết nối cơ sở dữ liệu với logic failover phù hợp Kiến trúc ứng dụng: ┌─────────────────────────────────────────────────────────────────────┐ │ Global Application │ ├─────────────────────────────┬───────────────────────────────────────┤ │ Primary Region │ Secondary Region │ │ (ap-southeast-1) │ (us-west-2) │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ Load Balancer │ │ │ Load Balancer │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ │ │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ EC2 Instances │ │ │ EC2 Instances │ │ │ │ (Java App) │ │ │ (Java App) │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ │ │ │ │ │ │ ┌─────────────────────┐ │ ┌─────────────────────┐ │ │ │ Primary Aurora │ │ │ Secondary Aurora │ │ │ │ (Read/Write) │ │ │ (Read Only) │ │ │ └─────────────────────┘ │ └─────────────────────┘ │ └─────────────────────────────┴───────────────────────────────────────┘ Những gì chúng ta sẽ làm: Cấu hình Application Properties - Thiết lập kết nối cơ sở dữ liệu cho cả hai vùng Triển khai đến Primary Region - Cài đặt và cấu hình ứng dụng trong ap-southeast-1 Triển khai đến Secondary Region - Cài đặt và cấu hình ứng dụng trong us-west-2 Thiết lập Load Balancer - Tạo ALB trong cả hai vùng để có tính khả dụng cao Kiểm tra Global Read - Xác minh ứng dụng có thể đọc từ cluster cục bộ Kiểm tra Write Operation - Xác nhận việc ghi đi đến primary cluster Tính năng ứng dụng: Nền tảng học tiếng Anh: Ứng dụng mẫu để học tiếng Anh Hỗ trợ đa vùng: Được cấu hình để làm việc với Aurora Global Database Tách biệt Read/Write: Được tối ưu hóa cho hiệu suất đọc toàn cầu Health Check: Giám sát sức khỏe tích hợp cho load balancer Auto Scaling: Được cấu hình với Auto Scaling Group Hãy bắt đầu triển khai ứng dụng của chúng ta trên cả hai vùng.\n"
 },
 {
-	"uri": "/vi/categories/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "/vi/tags/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",
