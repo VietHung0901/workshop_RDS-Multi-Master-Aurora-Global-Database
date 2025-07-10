@@ -11,7 +11,7 @@
 	"title": "RDS Multi-Master Aurora with Global Database",
 	"tags": [],
 	"description": "",
-	"content": "Work with Amazon RDS Aurora Global Database Overall In this lab, you\u0026rsquo;ll learn the basics and practice of Amazon RDS Aurora Global Database. You will create a multi-region Aurora cluster with Global Database for high availability and disaster recovery, deploy applications across multiple regions, and test failover scenarios.\nContent Introduction Prerequisites Create Primary Aurora Cluster Create Global Database Deploy Application Test Failover Clean up resources "
+	"content": "Work with Amazon RDS Aurora Global Database Team admin xem trước tiếng Việt nhé, tiếng anh em chưa làm kịp ạ Overall In this lab, you\u0026rsquo;ll learn the basics and practice of Amazon RDS Aurora Global Database. You will create a multi-region Aurora cluster with Global Database for high availability and disaster recovery, deploy applications across multiple regions, and test failover scenarios.\nContent Introduction Prerequisites Create Primary Aurora Cluster Create Global Database Deploy Application Test Failover Clean up resources "
 },
 {
 	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.1-createvpc/",
