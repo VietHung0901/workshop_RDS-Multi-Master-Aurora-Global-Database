@@ -9,7 +9,7 @@
 
     <link rel="icon" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/favicon.png" type="image/png">
 
-    <title>RDS Multi-Master Aurora với Global Database :: Workshop Aurora Global Database</title>
+    <title>Region Secondary :: Workshop Aurora Global Database</title>
 
     
     <link href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/css/nucleus.css?1752257029" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/">
+  <body class="" data-url="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/vi/2-prerequiste/" title="Các bước chuẩn bị" class="dd-item 
-        
+        parent
         
         
         ">
@@ -265,7 +265,7 @@
     
     <li data-nav-id="/vi/2-prerequiste/2.2-region-secondary/" title="Region Secondary" class="dd-item 
         
-        
+        active
         
         ">
       <a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/">
@@ -323,23 +323,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="vi" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/" selected>Tiếng Việt</option>
+                      <option id="vi" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/" selected>Tiếng Việt</option>
                     
                   
               
@@ -406,41 +394,100 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/VietHung0901/workshop_RDS-Multi-Master-Aurora-Global-Database2-Prerequiste/2.2-Region-secondary/_index.vi.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/'>RDS Multi-Master Aurora với Global Database</a> > <a href='https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/'>Các bước chuẩn bị</a> > Region Secondary
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#nội-dung">Nội dung</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Region Secondary
+            </h1>
+          
 
         
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
 
- 
-<h1 id="làm-việc-với-rds-multi-master-aurora-với-global-database">Làm việc với RDS Multi-Master Aurora với Global Database</h1>
-<h3 id="tổng-quan">Tổng quan</h3>
-<p>Trong bài lab này, bạn sẽ tìm hiểu cách thiết kế và triển khai <strong>Amazon RDS Aurora Global Database</strong> với cấu hình <strong>multi-master</strong>, hỗ trợ đọc và ghi dữ liệu ở nhiều vùng địa lý khác nhau.</p>
-<p>Bạn sẽ thực hành các bước:</p>
-<ul>
-<li>Tạo <strong>Aurora Global Database</strong> với các cụm CSDL (cluster) phân bố đa vùng (multi-region)</li>
-<li>Thiết lập cơ chế <strong>read/write splitting</strong> để tối ưu hiệu suất</li>
-<li>Cấu hình <strong>automated failover</strong> để đảm bảo tính sẵn sàng cao và RTO &lt; 1s</li>
-<li>Kiểm tra <strong>tình huống thảm họa (disaster recovery)</strong> và <strong>xử lý xung đột dữ liệu (conflict resolution)</strong></li>
-<li>Sử dụng công cụ như <strong>Aurora Performance Insights</strong> và <strong>CloudWatch</strong> để theo dõi hiệu năng và giám sát hệ thống</li>
-<li>Thực hiện các chiến lược <strong>sao lưu và phục hồi (backup &amp; restore)</strong> với RDS Snapshots và Audit Logs</li>
-</ul>
-<p>Qua bài lab này, bạn sẽ nắm được cách xây dựng hệ thống cơ sở dữ liệu phân tán toàn cầu với độ tin cậy và hiệu năng cao, phù hợp cho các ứng dụng cần <strong>scale toàn cầu</strong>, <strong>không downtime</strong> và <strong>phản hồi nhanh</strong> trên toàn thế giới.</p>
-<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/architecture.png" alt="Aurora Global Database"></p>
+
+	<p>Đây sẽ là region phụ nơi ta dùng để chứ Amazon Aurora sau khi cấu hình trở thành Global Database</p>
 <h3 id="nội-dung">Nội dung</h3>
-<ol>
-<li><a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/">Giới thiệu</a></li>
-<li><a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/">Các bước chuẩn bị</a></li>
-</ol>
+
+
+
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
         
         </div> 
         
@@ -491,6 +538,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -505,6 +553,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -571,6 +622,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -595,8 +647,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.3-createnatgateway/" title="Tạo NAT Gateway"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/" title="Giới thiệu" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/" title="Region Primary" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -634,4 +688,3 @@
 </script>
   </body>
 </html>
-

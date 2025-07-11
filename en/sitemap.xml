@@ -2,21 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/1-introduce/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/1-introduce/"
-                />
-  </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
@@ -26,84 +12,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.1-createvpc/</loc>
-    <lastmod>2025-06-18T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-createvpc/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.1-createvpc/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.2-createsg/</loc>
-    <lastmod>2025-06-18T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-createsg/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/2-prerequiste/2.2-createsg/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/3-primary-cluster/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-primary-cluster/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/3-primary-cluster/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/4-global-database/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-global-database/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/4-global-database/"
-                />
-  </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/5-deploy-app/</loc>
-    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-deploy-app/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/5-deploy-app/"
                 />
   </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/categories/</loc>

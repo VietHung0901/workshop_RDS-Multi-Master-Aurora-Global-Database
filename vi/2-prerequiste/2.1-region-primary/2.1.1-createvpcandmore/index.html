@@ -9,7 +9,7 @@
 
     <link rel="icon" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/favicon.png" type="image/png">
 
-    <title>RDS Multi-Master Aurora với Global Database :: Workshop Aurora Global Database</title>
+    <title>Tạo VPC và các thành phần :: Workshop Aurora Global Database</title>
 
     
     <link href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/css/nucleus.css?1752257029" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/">
+  <body class="" data-url="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/vi/2-prerequiste/" title="Các bước chuẩn bị" class="dd-item 
-        
+        parent
         
         
         ">
@@ -140,7 +140,7 @@
   
     
     <li data-nav-id="/vi/2-prerequiste/2.1-region-primary/" title="Region Primary" class="dd-item 
-        
+        parent
         
         
         ">
@@ -172,7 +172,7 @@
     
     <li data-nav-id="/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/" title="Tạo VPC và các thành phần" class="dd-item 
         
-        
+        active
         
         ">
       <a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/">
@@ -323,23 +323,11 @@
               
               
                   
-                    
-                    
-                      <option id="en" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/">English</option>
-                    
-                  
-              
-                  
-              
-          
-              
-              
-                  
               
                   
                     
                     
-                      <option id="vi" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/" selected>Tiếng Việt</option>
+                      <option id="vi" value="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/" selected>Tiếng Việt</option>
                     
                   
               
@@ -406,41 +394,172 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/VietHung0901/workshop_RDS-Multi-Master-Aurora-Global-Database2-Prerequiste/2.1-Region-primary/2.1.1-CreateVPCAndMore/_index.vi.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/'>RDS Multi-Master Aurora với Global Database</a> > <a href='https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/'>Các bước chuẩn bị</a> > <a href='https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/'>Region Primary</a> > Tạo VPC và các thành phần
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#yêu-cầu-kiến-trúc-vpc">Yêu cầu kiến trúc VPC</a></li>
+    <li><a href="#các-bước-thực-hiện">CÁC BƯỚC THỰC HIỆN:</a>
+      <ul>
+        <li><a href="#bước-1-truy-cập-giao-diện-vpc">Bước 1: Truy cập giao diện VPC</a></li>
+        <li><a href="#bước-2-cấu-hình-vpc">Bước 2: Cấu hình VPC</a></li>
+        <li><a href="#bước-3-kiểm-tra-sơ-đồ-tài-nguyên">Bước 3: Kiểm tra sơ đồ tài nguyên</a></li>
+        <li><a href="#bước-4-bật-tính-năng-gán-ip-công-tự-động">Bước 4: Bật tính năng gán IP công tự động</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Tạo VPC và các thành phần
+            </h1>
+          
 
         
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
 
- 
-<h1 id="làm-việc-với-rds-multi-master-aurora-với-global-database">Làm việc với RDS Multi-Master Aurora với Global Database</h1>
-<h3 id="tổng-quan">Tổng quan</h3>
-<p>Trong bài lab này, bạn sẽ tìm hiểu cách thiết kế và triển khai <strong>Amazon RDS Aurora Global Database</strong> với cấu hình <strong>multi-master</strong>, hỗ trợ đọc và ghi dữ liệu ở nhiều vùng địa lý khác nhau.</p>
-<p>Bạn sẽ thực hành các bước:</p>
+
+	<h2 id="yêu-cầu-kiến-trúc-vpc">Yêu cầu kiến trúc VPC</h2>
+<p>Tạo một <strong>VPC với cấu trúc Multi-AZ</strong>, bao gồm:</p>
 <ul>
-<li>Tạo <strong>Aurora Global Database</strong> với các cụm CSDL (cluster) phân bố đa vùng (multi-region)</li>
-<li>Thiết lập cơ chế <strong>read/write splitting</strong> để tối ưu hiệu suất</li>
-<li>Cấu hình <strong>automated failover</strong> để đảm bảo tính sẵn sàng cao và RTO &lt; 1s</li>
-<li>Kiểm tra <strong>tình huống thảm họa (disaster recovery)</strong> và <strong>xử lý xung đột dữ liệu (conflict resolution)</strong></li>
-<li>Sử dụng công cụ như <strong>Aurora Performance Insights</strong> và <strong>CloudWatch</strong> để theo dõi hiệu năng và giám sát hệ thống</li>
-<li>Thực hiện các chiến lược <strong>sao lưu và phục hồi (backup &amp; restore)</strong> với RDS Snapshots và Audit Logs</li>
+<li><strong>2 Availability Zones (AZs)</strong></li>
+<li>Trong <strong>mỗi AZ</strong>:
+<ul>
+<li><strong>1 Public Subnet</strong></li>
+<li><strong>2 Private Subnets</strong></li>
 </ul>
-<p>Qua bài lab này, bạn sẽ nắm được cách xây dựng hệ thống cơ sở dữ liệu phân tán toàn cầu với độ tin cậy và hiệu năng cao, phù hợp cho các ứng dụng cần <strong>scale toàn cầu</strong>, <strong>không downtime</strong> và <strong>phản hồi nhanh</strong> trên toàn thế giới.</p>
-<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/architecture.png" alt="Aurora Global Database"></p>
-<h3 id="nội-dung">Nội dung</h3>
+</li>
+</ul>
+<h2 id="các-bước-thực-hiện">CÁC BƯỚC THỰC HIỆN:</h2>
+<h3 id="bước-1-truy-cập-giao-diện-vpc">Bước 1: Truy cập giao diện VPC</h3>
 <ol>
-<li><a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/">Giới thiệu</a></li>
-<li><a href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/">Các bước chuẩn bị</a></li>
+<li>Mở trình duyệt và truy cập vào <a href="https://console.aws.amazon.com/vpc/home">AWS VPC Console</a>.</li>
+<li>Ở thanh bên trái, chọn <strong>Your VPCs</strong>.</li>
+<li>Nhấn <strong>Create VPC</strong> để bắt đầu tạo mới.</li>
 </ol>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/002-createVPC.png" alt="VPC"></p>
+<hr>
+<h3 id="bước-2-cấu-hình-vpc">Bước 2: Cấu hình VPC</h3>
+<p>Tại trang <strong>Create VPC</strong>, điền thông tin cấu hình như sau:</p>
+<h4 id="thông-tin-chung">Thông tin chung:</h4>
+<ul>
+<li><strong>Resource to create</strong>: VPC and more</li>
+<li><strong>Name</strong>: <code>primary</code></li>
+<li><strong>IPv4 CIDR block</strong>: <code>10.0.0.0/16</code></li>
+<li><strong>Tenancy</strong>: <code>Default</code></li>
+</ul>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/003-createVPC.png" alt="VPC"></p>
+<h4 id="cấu-hình-mạng">Cấu hình mạng:</h4>
+<ul>
+<li><strong>Number of Availability Zones</strong>: 2</li>
+<li><strong>Number of public subnets</strong>: 2</li>
+<li><strong>Number of private subnets</strong>: 4</li>
+</ul>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/004-createVPC.png" alt="VPC"></p>
+<h4 id="cấu-hình-bổ-sung">Cấu hình bổ sung:</h4>
+<ul>
+<li><strong>NAT gateway</strong>: None</li>
+<li><strong>VPC endpoints</strong>: None</li>
+<li>Bật cả DNS hostname và DNS resolution</li>
+</ul>
+<p>Sau khi điền đầy đủ thông tin, nhấn <strong>Create VPC</strong>.</p>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/005-createVPC.png" alt="VPC"></p>
+<hr>
+<h3 id="bước-3-kiểm-tra-sơ-đồ-tài-nguyên">Bước 3: Kiểm tra sơ đồ tài nguyên</h3>
+<p>Sau khi tạo VPC thành công, bạn sẽ thấy sơ đồ các tài nguyên được tạo tự động:</p>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/006-createVPC.png" alt="VPC"></p>
+<hr>
+<h3 id="bước-4-bật-tính-năng-gán-ip-công-tự-động">Bước 4: Bật tính năng gán IP công tự động</h3>
+<p>Sau khi tạo VPC, cần bật tự động gán địa chỉ IP công cho 2 public subnet:</p>
+<ol>
+<li>Vào từng public subnet.</li>
+<li>Chọn <strong>Actions</strong> &gt; <strong>Edit subnet settings</strong>.</li>
+</ol>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/007-createVPC.png" alt="VPC"></p>
+<ol start="3">
+<li>Bật tùy chọn <strong>Auto-assign IPv4 address</strong>.</li>
+</ol>
+<p><img src="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/images/2.prerequisite/008-createVPC.png" alt="VPC"></p>
+<ol start="4">
+<li>Tương tự cho public subnet còn lại.</li>
+</ol>
+
+
+
+
+
+<footer class=" footline" >
 	
-  
+</footer>
+
         
         </div> 
         
@@ -491,20 +610,6 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -520,6 +625,23 @@
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
                     
                 
                 
@@ -536,6 +658,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -595,8 +720,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/" title="Region Primary"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/" title="Giới thiệu" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.2-createsecuritygroup/" title="Tạo Security Group" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -634,4 +761,3 @@
 </script>
   </body>
 </html>
-
