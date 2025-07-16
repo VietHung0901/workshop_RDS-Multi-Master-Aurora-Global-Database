@@ -1,0 +1,5 @@
+strong, b {
+  font-weight: 800 !important;
+  font-family: system-ui, sans-serif !important; /* ép dùng font mặc định của hệ điều hành */
+  color: inherit !important;
+}
