@@ -5,7 +5,13 @@
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/4.1-downloadconfig/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/3.1-createdbsubnet/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-createproxy/5.1-createproxy/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/</loc>
@@ -45,7 +51,13 @@
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/4.2-deploy/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.3-createec2/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.3-createsecuritygroup/</loc>
@@ -57,10 +69,22 @@
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.4-createec2/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/10-hounwgs-d%E1%BA%ABn/</loc>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/11-todolist/</loc>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-createproxy/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/6-test/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/7-monitoring/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot/</loc>
+    <lastmod>2025-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/9-clearresource/</loc>
     <lastmod>2025-07-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/categories/</loc>

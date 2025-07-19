@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Snapshot on Workshop Aurora Global Database</title>
+    <link>http://localhost:1313/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot-copy/</link>
+    <description>Recent content in Snapshot on Workshop Aurora Global Database</description>
+    <generator>Hugo</generator>
+    <language>vi</language>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="http://localhost:1313/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot-copy/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
