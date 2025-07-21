@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Monitoring on Workshop Aurora Global Database</title>
+    <title>Monitoring Aurora Cluster on Workshop Aurora Global Database</title>
     <link>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/7-monitoring/</link>
-    <description>Recent content in Monitoring on Workshop Aurora Global Database</description>
+    <description>Recent content in Monitoring Aurora Cluster on Workshop Aurora Global Database</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>

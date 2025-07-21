@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tạo Proxy on Workshop Aurora Global Database</title>
+    <title>Triển khai RDS Proxy cho Aurora on Workshop Aurora Global Database</title>
     <link>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-createproxy/</link>
-    <description>Recent content in Tạo Proxy on Workshop Aurora Global Database</description>
+    <description>Recent content in Triển khai RDS Proxy cho Aurora on Workshop Aurora Global Database</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>
