@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Aurora Global Database Workshop</title>
-    <link>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/</link>
+    <link>https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/</link>
     <description>Recent content on Aurora Global Database Workshop</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

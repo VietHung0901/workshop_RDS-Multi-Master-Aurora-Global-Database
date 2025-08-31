@@ -2,40 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/</loc>
+    <loc>https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/"
                 />
   </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/categories/</loc>
+    <loc>https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/categories/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/categories/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/categories/"
                 />
   </url><url>
-    <loc>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/tags/</loc>
+    <loc>https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/tags/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/tags/"
+                href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/tags/"
                 />
   </url>
 </urlset>

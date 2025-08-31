@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Snapshot &amp; Restore on Workshop Aurora Global Database</title>
-    <link>https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot/</link>
+    <link>https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/8-snapshot/</link>
     <description>Recent content in Snapshot &amp; Restore on Workshop Aurora Global Database</description>
     <generator>Hugo</generator>
     <language>vi</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/8-snapshot/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

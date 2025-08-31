@@ -1,181 +1,181 @@
 [
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/1-introduce/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/1-introduce/",
 	"title": "Giới thiệu",
 	"tags": [],
 	"description": "",
 	"content": "Amazon Aurora Global Database là một tính năng của Amazon Aurora cho phép một cơ sở dữ liệu Aurora duy nhất có thể mở rộng trên nhiều AWS region. Nó cung cấp khả năng đọc nhanh tại từng vùng và khôi phục thảm họa từ các sự cố toàn vùng.\nAurora Global Database sử dụng cơ sở hạ tầng chuyên dụng để sao chép dữ liệu của bạn, để lại tài nguyên cơ sở dữ liệu hoàn toàn có sẵn để phục vụ khối lượng công việc của ứng dụng. Trung bình, Global Database sao chép dữ liệu với độ trễ điển hình dưới 1 giây.\nBằng cách sử dụng Aurora Global Database, bạn sẽ có được những ưu điểm sau:\nĐọc toàn cầu với độ trễ cục bộ: Bạn có thể phục vụ lưu lượng đọc từ AWS Region gần nhất với người dùng của mình với độ trễ điển hình dưới 1 giây. Các Aurora cluster phụ có thể mở rộng: Bạn có thể thêm tối đa 5 vùng phụ, và mỗi cluster phụ có thể có tối đa 16 Aurora Replica instance. Sao chép nhanh: Aurora Global Database sử dụng cơ sở hạ tầng chuyên dụng để cơ sở dữ liệu của bạn hoàn toàn có sẵn để phục vụ khối lượng công việc của ứng dụng. Khôi phục từ sự cố toàn vùng: Các cluster phụ cho phép failover nhanh để khôi phục thảm họa. Bạn thường có thể promote một cluster phụ và làm cho nó có sẵn để ghi trong vòng chưa đến 1 phút. Tính khả dụng cao: Aurora Global Database cung cấp tính khả dụng cao hơn so với triển khai một vùng duy nhất. Các thành phần chính: Primary cluster: Aurora cluster trong AWS Region chính của bạn nơi dữ liệu được làm chủ. Cluster này có thể thực hiện cả hoạt động đọc và ghi. Secondary cluster: Aurora cluster trong một AWS Region khác với primary cluster. Secondary cluster chỉ hỗ trợ hoạt động đọc. Global database: Global database chứa primary cluster và tối đa năm secondary cluster. Với Aurora Global Database, bạn có thể xây dựng các ứng dụng phân tán toàn cầu mà không cần sự phức tạp của việc quản lý sao chép cơ sở dữ liệu.\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/4.1-downloadconfig/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/4-deployprimay/4.1-downloadconfig/",
 	"title": "Tải cấu hình cho EC2",
 	"tags": [],
 	"description": "",
 	"content": "Tải cấu hình cho EC2 Cài đặt Java 22 Bước 1: Di chuyển vào thư mục /opt Thư mục tiêu chuẩn dành cho các phần mềm bên thứ ba (ngoài yum).\ncd /opt Bước 2: Tải và giải nén Java 22 từ Adoptium # Tải file nén Java 22 từ Adoptium sudo curl -LO https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.1%2B8/OpenJDK22U-jdk_x64_linux_hotspot_22.0.1_8.tar.gz # Giải nén file .tar.gz sudo tar -xzf OpenJDK22U-jdk_x64_linux_hotspot_22.0.1_8.tar.gz # Đổi tên thư mục cho dễ nhớ (jdk-22.0.1+8 → java-22) sudo mv jdk-22.0.1+8 java-22 Bước 3: Thiết lập biến môi trường JAVA_HOME # Mở file ~/.bashrc vi ~/.bashrc Thêm vào cuối file:\nexport JAVA_HOME=/opt/java-22 export PATH=$JAVA_HOME/bin:$PATH Bước 4: Áp dụng thay đổi và kiểm tra Java # Áp dụng thay đổi source ~/.bashrc # Kiểm tra phiên bản Java java -version Cài đặt Maven Bước 1: Di chuyển vào thư mục /opt cd /opt Bước 2: Tải và giải nén Maven # Tải file nén Maven sudo curl -O https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz # Giải nén file .tar.gz sudo tar -xzf apache-maven-3.9.6-bin.tar.gz Bước 3: Tạo symbolic link # Tạo symbolic link để dễ nâng cấp Maven sau này sudo ln -s /opt/apache-maven-3.9.6 /opt/maven Bước 4: Cấu hình biến môi trường MAVEN_HOME # Mở file ~/.bashrc vi ~/.bashrc Thêm vào cuối file:\nexport MAVEN_HOME=/opt/maven export PATH=$MAVEN_HOME/bin:$PATH Bước 5: Áp dụng thay đổi và kiểm tra Maven # Áp dụng thay đổi source ~/.bashrc # Kiểm tra phiên bản Maven mvn -v Cài đặt Git Bước 1: Di chuyển về thư mục chính (nếu đang ở /opt) cd Bước 2: Cài đặt Git sudo yum install git -y Bước 3: Kiểm tra phiên bản Git git --version "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/3.1-createdbsubnet/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/3-createaurora/3.1-createdbsubnet/",
 	"title": "Tạo DB Subnet",
 	"tags": [],
 	"description": "",
 	"content": "Truy cập giao diện Aurora and RDS Mở trình duyệt và truy cập vào AWS Aurora and RDS Console. Ở thanh bên trái, chọn Subnet groups. Nhấn Create DB subnet group để bắt đầu tạo mới. Tạo DB Subnet cho Primary Aurora Chú ý: Đảm bảo bạn đã chuyển về Primary Region trước khi thực hiện bước này.\nThực hiện theo các bước sau:\nNhập các thông tin: Name: workshop-db-subnet-group-primary Description: DB subnet group for Aurora cluster VPC: primary-vpc Thêm các subnet: Availability Zone Subnet ap-southeast-1a primary-subnet-private3 ap-southeast-1b primary-subnet-private4 Nhấn Create Tạo DB Subnet cho Secondary Aurora Chú ý: Đảm bảo bạn đã chuyển về Secondary Region trước khi thực hiện bước này.\nNhập các thông tin: Name: workshop-db-subnet-group-secondary Description: DB subnet group for Aurora cluster VPC: secondary-vpc Thêm các subnet: Availability Zone Subnet us-east-1a secondary-subnet-private1 us-east-1b secondary-subnet-private2 Nhấn Create "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.1-createvpcandmore/",
 	"title": "Tạo VPC và các thành phần",
 	"tags": [],
 	"description": "",
 	"content": "Kiến trúc Bước 1: Truy cập giao diện VPC Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn Your VPCs. Nhấn Create VPC để bắt đầu tạo mới. Bước 2: Cấu hình VPC Tại trang Create VPC, điền thông tin cấu hình như sau:\nThông tin chung Thuộc tính Giá trị Resource to create VPC and more Name primary IPv4 CIDR block 10.0.0.0/16 Tenancy Default Cấu hình mạng Thành phần Số lượng Availability Zones 2 Public Subnets 2 Private Subnets 4 Cấu hình bổ sung NAT Gateway: None VPC Endpoints: None Enable DNS Hostnames Enable DNS Resolution Sau khi hoàn tất, nhấn Create VPC\nBước 3: Kiểm tra sơ đồ tài nguyên Sau khi tạo VPC thành công, bạn sẽ thấy sơ đồ các tài nguyên được tạo tự động: Bước 4: Bật tính năng gán IP công tự động Sau khi tạo VPC, cần bật tự động gán địa chỉ IP công cho 2 public subnet: Cần bật tự động cấp IP công cho 2 public subnet:\nVào từng Public Subnet Chọn Actions → Edit subnet settings Bật tùy chọn Auto-assign IPv4 address Lặp lại cho public subnet còn lại. "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.1-createvpcandmore/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.1-createvpcandmore/",
 	"title": "Tạo VPC và các thành phần",
 	"tags": [],
 	"description": "",
 	"content": "Kiến trúc Bước 1: Truy cập giao diện VPC Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn Your VPCs. Nhấn Create VPC để bắt đầu tạo mới. Bước 2: Cấu hình VPC Tại trang Create VPC, điền thông tin cấu hình như sau:\nThông tin chung Thuộc tính Giá trị Resource to create VPC and more Name secondary IPv4 CIDR block 10.0.0.0/16 Tenancy Default Cấu hình mạng Thành phần Số lượng Availability Zones 2 Public Subnets 2 Private Subnets 2 Cấu hình bổ sung NAT Gateway: None VPC Endpoints: None Enable DNS Hostnames Enable DNS Resolution Sau khi hoàn tất, nhấn Create VPC\nBước 3: Bật tính năng gán IP công tự động Sau khi tạo VPC, cần bật tự động gán địa chỉ IP công cho 2 public subnet: Cần bật tự động cấp IP công cho 2 public subnet:\nVào từng Public Subnet Chọn Actions → Edit subnet settings Bật tùy chọn Auto-assign IPv4 address Lặp lại cho public subnet còn lại. "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/",
 	"title": "Thiết lập Primary Region",
 	"tags": [],
 	"description": "",
 	"content": "Trong bước này, bạn cần chọn Singapore (ap-southeast-1) làm Primary Region – nơi sẽ triển khai chính toàn bộ cụm cơ sở dữ liệu và ứng dụng của bạn.\n💡 Gợi ý: Chọn Region gần người dùng cuối hoặc gần team phát triển để giảm độ trễ và tối ưu chi phí truyền dữ liệu.\nNội dung hướng dẫn Chuẩn bị VPC Chuẩn bị NAT Gateway Chuẩn bị Security Group Chuẩn bị EC2 Instance "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/",
 	"title": "Triển khai Aurora Global Database hỗ trợ đọc phân tán và phục hồi thảm họa",
 	"tags": [],
 	"description": "",
 	"content": "Triển khai Aurora Global Database hỗ trợ đọc phân tán và phục hồi thảm họa Giới thiệu Trong thời đại các ứng dụng web ngày càng phục vụ người dùng trên phạm vi toàn cầu, việc đảm bảo hiệu năng truy cập nhanh và khả năng phục hồi cao trở thành yêu cầu thiết yếu. Đặc biệt với các hệ thống như nền tảng học tập trực tuyến, mạng xã hội, hay thương mại điện tử – việc đọc dữ liệu nhanh từ bất kỳ khu vực nào và duy trì tính sẵn sàng liên tục là yếu tố sống còn.\nAmazon Aurora Global Database là một giải pháp mạnh mẽ được thiết kế để đáp ứng nhu cầu đó. Với khả năng sao chép dữ liệu gần như theo thời gian thực giữa các khu vực (region) và hỗ trợ chuyển đổi vùng ghi khi xảy ra sự cố, Aurora giúp các ứng dụng duy trì hiệu suất cao và độ tin cậy trong môi trường đa khu vực.\nWorkshop này hướng dẫn cách triển khai Aurora Global Database với kiến trúc Single-Writer Multi-Reader, tập trung vào các nội dung:\nTối ưu hiệu năng đọc toàn cầu bằng cách phân phối truy vấn đến vùng gần nhất Đảm bảo tính sẵn sàng cao thông qua cơ chế tự động chuyển đổi khi xảy ra lỗi Thử nghiệm các tình huống phục hồi thảm họa Phân tích hiệu năng, theo dõi hệ thống và thiết lập chiến lược sao lưu Đây là một bài lab thực tiễn, được thiết kế để người học có thể hiểu rõ kiến trúc, triển khai từng bước trên AWS và ứng dụng vào các hệ thống thực tế.\nKhi nào bạn nên triển khai Aurora Global Database? Khi ứng dụng của bạn có người dùng toàn cầu Khi bạn cần đảm bảo tốc độ truy cập nhanh ở mọi khu vực Khi yêu cầu RTO (Recovery Time Objective) dưới 1 giây là bắt buộc Khi bạn muốn xây dựng hệ thống chống chịu lỗi, phục hồi nhanh, dễ mở rộng Giá trị bạn nhận được sau workshop Kiến thức vững chắc về kiến trúc Aurora Global Database Kinh nghiệm triển khai thực tế với mô hình phân vùng theo khu vực Kỹ năng xử lý tình huống sự cố và tối ưu hiệu năng Tư duy thiết kế hệ thống hướng đến độ tin cậy và khả năng mở rộng "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/",
 	"title": "Các bước chuẩn bị",
 	"tags": [],
 	"description": "",
 	"content": "Các bước chuẩn bị trước khi triển khai 1. Tạo IAM User có quyền quản trị Bạn cần đăng nhập bằng IAM User có quyền AdministratorAccess để có thể thực hiện toàn bộ các thao tác trong workshop này.\n⚠️ Lưu ý: Trong môi trường production, bạn nên giới hạn quyền theo nguyên tắc least privilege thay vì cấp quyền toàn bộ.\n🔗 Truy cập AWS IAM Console để tạo và cấu hình người dùng IAM.\n2. Thiết lập AWS Budget để kiểm soát chi phí Việc thiết lập ngân sách là bắt buộc để tránh phát sinh chi phí ngoài ý muốn, đặc biệt khi làm việc với các dịch vụ như RDS hoặc Aurora – vốn có thể tiêu tốn nhiều chi phí nếu không kiểm soát tốt.\nTạo ngân sách (budget) với các ngưỡng cảnh báo: Dự kiến: Ví dụ $10, $50 Thực tế đã dùng: để nhận cảnh báo qua email 🔗 Truy cập AWS Budgets Console để tạo ngân sách.\n3. Hiểu về kiến trúc sẽ triển khai Để triển khai Aurora Global Database, bạn cần tối thiểu 2 AWS Regions.\nTrong workshop này, ta sẽ sử dụng:\nap-southeast-1 (Singapore): Region chính để triển khai cụm cơ sở dữ liệu và ứng dụng us-east-1 (N. Virginia): Region phụ, dùng cho mục đích replication và thử nghiệm khả năng khôi phục sau thảm họa (Disaster Recovery) ✅ Việc sử dụng nhiều region giúp đảm bảo tính sẵn sàng cao, khả năng chịu lỗi, và khôi phục nhanh trong trường hợp xảy ra sự cố tại một vùng địa lý.\nNội dung hướng dẫn Region Primary Region Secondary "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/3.2-createaurora/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/3-createaurora/3.2-createaurora/",
 	"title": "Tạo Aurora Cluster",
 	"tags": [],
 	"description": "",
 	"content": "Bước 1: Truy cập giao diện Aurora \u0026amp; RDS Truy cập AWS RDS Console. Trong menu bên trái, chọn Databases. Nhấn Create database. Lưu ý: Đảm bảo bạn đang ở Primary Region trước khi khởi tạo Aurora Cluster.\nBước 2: Cấu hình Aurora Cluster 1️⃣ Database Creation Method Chọn Standard create. 2️⃣ Engine Options Engine type: Aurora (MySQL Compatible). Engine version: Aurora MySQL 3.08.2 (hoặc phiên bản mới nhất). 3️⃣ Templates Chọn Dev/Test. 4️⃣ Cluster Settings DB cluster identifier: workshop-aurora-primary-cluster Master username: admin Master password: WorkshopAurora123! (hoặc mật khẩu tùy chọn) 5️⃣ Storage Configuration Chọn Aurora Standard. 6️⃣ DB Instance Class Chọn loại: db.r6g.large 7️⃣ Multi-AZ Deployment Bật ✓ Create an Aurora Replica or Reader node in a different AZ Tính năng này giúp tạo bản sao đọc (Reader node) tại Availability Zone khác, đảm bảo khả năng chịu lỗi và cân bằng tải đọc khi cần. 8️⃣ Connectivity Compute resource: Connect to an EC2 compute resource EC2 Instance: workshop-app-server-primary VPC: primary-vpc DB subnet group: workshop-db-subnet-group-primary Public access: No VPC security group: workshop-sg-aurora-primary Database port: 3306 Bật tính năng Read replica write forwarding Cho phép các Read Replica tự động chuyển tiếp các truy vấn ghi về Writer node, giúp ứng dụng chỉ cần kết nối tới endpoint của replica mà không lo phân biệt đọc/ghi. 9️⃣ Monitoring Bật Database Insight - Standard Giúp giám sát hiệu suất cơ sở dữ liệu với biểu đồ trực quan. Retention period: 7 ngày. AWS KMS key: sử dụng khóa mặc định để mã hóa dữ liệu giám sát. Log exports Error log: Ghi lại các lỗi trong quá trình vận hành. General log: Ghi lại các truy vấn SQL và kết nối đến cơ sở dữ liệu. Instance log: Tổng hợp các sự kiện liên quan đến phiên bản database. ✅ Nhấn Create database để bắt đầu quá trình khởi tạo. ⏳ Quá trình tạo Aurora Cluster có thể mất từ 10 đến 15 phút.\nBước 3: Kiểm tra cụm Aurora Quay lại RDS → Databases, đợi trạng thái hiển thị Available. Truy cập vào cụm vừa tạo để ghi lại: Writer endpoint Reader endpoint 💡 Hãy lưu lại các endpoint để cấu hình kết nối cho ứng dụng.\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.2-createnatgateway/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.2-createnatgateway/",
 	"title": "Tạo NAT Gateway",
 	"tags": [],
 	"description": "",
 	"content": "Ở đây ta cần cấu hình cho private subnet có thể đi ra ngoài internet nhằm EC2 bên trong có thể tải các gói cần thiết từ internet\nBước 1: Truy cập giao diện NAT Gateways Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn NAT Gateways. Nhấn Create NAT Gateway để bắt đầu tạo mới. Bước 2: Cấu hình NAT Gateway Tại trang Create NAT Gateway, điền thông tin cấu hình như sau:\nThông tin chung: Name: ws-ngw-primary Subnet: public subnet 1 Conectivity type: public Chọn Allocate Elastic IP để tạo ra Elastic IP dùng cho NAT Gateway Sau khi điền đầy đủ thông tin, nhấn Create NAT gateway. Bước 3: Cấu hình Route Table cho Private Subnet Để các Private Subnet có thể truy cập ra Internet (ví dụ để tải các bản vá hệ thống hoặc truy cập S3), cần cấu hình route thông qua NAT Gateway nằm trong Public Subnet.\nTruy cập mục Route Tables trong VPC Console. Chọn bảng định tuyến có tên rtb-private1. Nhấn Actions → chọn Edit routes. Thêm một route với: Destination: 0.0.0.0/0 Target: NAT Gateway bạn đã tạo trước đó (ví dụ nat-xxxxxxxxxxxxxxxxx) "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.2-createsecuritygroup/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.2-createsecuritygroup/",
 	"title": "Tạo Security Group",
 	"tags": [],
 	"description": "",
 	"content": "Truy cập giao diện Security Groups Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn Security groups. Nhấn Create Security group để bắt đầu tạo mới. Cấu hình Security group cho Baston Thông tin chung Name: workshop-sg-bastion-secondary Description: Security group for bastion host VPC: secondary-vpc 🔽 Inbound Rules Loại truy cập Giao thức Cổng Nguồn SSH TCP 22 0.0.0.0/0 🔼 Outbound Rules Loại truy cập Giao thức Cổng Đích Ghi chú All traffic All All 0.0.0.0/0 Để mặc định Cấu hình Security group cho Secondary Aurora Thông tin chung Security Group này được dùng để bảo vệ cụm Secondary Aurora.\nName: workshop-sg-aurora-secondary Description: Allows MySQL/Aurora access from Secondary-vpc VPC: secondary-vpc 🔽 Inbound Rules Loại truy cập Giao thức Cổng Nguồn MySQL/Aurora TCP 3306 workshop-sg-bastion-secondary 🔼 Outbound Rules Loại truy cập Giao thức Cổng Đích Ghi chú All traffic All All 0.0.0.0/0 Để mặc định 📌 Lưu ý bảo mật:\nAurora nên được đặt trong private subnet để tránh truy cập trực tiếp từ Internet. Tuyệt đối không mở cổng 3306 ra Internet (0.0.0.0/0). Chỉ giới hạn truy cập từ Security Group EC2 application server. "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/",
 	"title": "Thiết lập Secondary Region",
 	"tags": [],
 	"description": "",
 	"content": "Trong bước này, bạn cần chọn N.Virginia (us-east-1) làm Secondary Region – nơi sẽ triển khai\n💡 Gợi ý: Chọn Region gần người dùng cuối hoặc gần team phát triển để giảm độ trễ và tối ưu chi phí truyền dữ liệu.\nNội dung hướng dẫn Chuẩn bị VPC Chuẩn bị Security Group "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/4.2-deploy/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/4-deployprimay/4.2-deploy/",
 	"title": "Triển khai ứng dụng",
 	"tags": [],
 	"description": "",
 	"content": "Triển khai ứng dụng 1. Cấu hình Aurora # Di chuyển ra thư mục chính (nếu đang ở /opt) cd # Cài đặt MySQL client sudo dnf install mariadb105 # Kết nối vào Aurora mysql -h \u0026lt;Aurora-ENDPOINT-name-Writer\u0026gt; -u \u0026lt;USERNAME\u0026gt; -p # Tạo database create database TiengAnhMoiNgay; # Kiểm tra lại show databases; 2. Cấu hình project # Clone project từ GitHub git clone https://github.com/VietHung0901/TiengAnhMoiNgay.git # Kiểm tra thư mục ls # Di chuyển vào project cd TiengAnhMoiNgay # Chuyển sang nhánh DEV git checkout DEV # Di chuyển vào thư mục cấu hình cd src/main/resources # Đổi tên file cấu hình mv application.properties.example application.properties # Chỉnh sửa file cấu hình vi application.properties Cập nhật trong file application.properties:\n\u0026lt;Aurora-ENDPOINT-name-Writer\u0026gt; : endpoint Aurora \u0026lt;your_db_username\u0026gt; : admin \u0026lt;your_db_password\u0026gt; : mật khẩu database \u0026lt;your_google_gemini_api_key\u0026gt; : API key từ https://aistudio.google.com/ \u0026lt;your_jwt_secret_key\u0026gt; : chuỗi 32 ký tự (ví dụ: ksS7DKR4mYvZTmM2VsLUqB8zBzWvTeP9zXK3WbXqKzY=) \u0026lt;your_aws_translate_access_key\u0026gt; : access key user-Translate \u0026lt;your_aws_translate_secret_key\u0026gt; : secret key user-Translate # Lưu file: ESC :wq! # Quay về thư mục gốc project cd ../../.. # Build project ./mvnw clean package # Chạy ứng dụng java -jar target/TiengAnhMoiNgay-0.0.1-SNAPSHOT.jar 3. Tạo Target Group Cấu hình cơ bản:\nTarget type: Instances Name: workshop-target-group Protocol: HTTP Port: 8080 IP address type: IPv4 VPC: workshop-vpc Health checks:\nProtocol: HTTP Path: / Chọn instances:\nAvailable instances: workshop-ec2-server Port: 8080 4. Tạo Application Load Balancer (ALB) Cấu hình cơ bản:\nName: workshop-alb Scheme: Internet-facing IP address type: IPv4 Network mapping:\nVPC: primary-vpc Availability Zones: ap-southeast-1a: workshop-subnet-public1-ap-southeast-1a ap-southeast-1b: workshop-subnet-public2-ap-southeast-1b Security group: workshop-sg-alb-primary\nListeners and routing: trỏ về workshop-target-group\nTạo ALB và lưu lại DNS name.\n⚠️ Ứng dụng chỉ hỗ trợ HTTP (không HTTPS).\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/3-createaurora/",
 	"title": "Aurora - Global Database",
 	"tags": [],
 	"description": "",
 	"content": "Khi triển khai Amazon Aurora, bạn cần lưu ý:\nKhởi tạo cụm cơ sở dữ liệu chính (primary cluster) tại primary region. Mở rộng thành Aurora Global Database tại secondary region nhằm đảm bảo khả năng đọc dữ liệu toàn cầu và phục hồi nhanh khi có sự cố. Các bước thực hiện 3.1 Tạo DB Subnet Group 3.2 Tạo Aurora Cluster (Primary) 3.3 Triển khai Aurora Global Database "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.3-createec2/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.2-region-secondary/2.2.3-createec2/",
 	"title": "Tạo EC2 Instance",
 	"tags": [],
 	"description": "",
 	"content": " Mở trình duyệt và truy cập vào AWS EC2 Console. Ở thanh bên trái, chọn Instances. Nhấn Launch instance để bắt đầu tạo mới. Tạo EC2 Bastion Thông tin chung Name: workshop-bastion-secondary AMI: Amazon Linux 2023 Instance type: t2.micro Key pair: aws-keypair.pem Network settings Thành phần Giá trị VPC secondary-vpc Subnet primary-subnet-public1 Auto-assign Public IP Enable Security Group workshop-sg-bastion-primary Các thông tin còn lại để mặc định Nhấn Launch instance để khởi tạo "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.3-createsecuritygroup/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.3-createsecuritygroup/",
 	"title": "Tạo Security Group",
 	"tags": [],
 	"description": "",
 	"content": "Truy cập giao diện Security Groups Mở trình duyệt và truy cập vào AWS VPC Console. Ở thanh bên trái, chọn Security groups. Nhấn Create Security group để bắt đầu tạo mới. Cấu hình Security group cho EC2-Bastion Thông tin chung: Security Group này dùng cho EC2 Bastion Host – máy chủ trung gian mà bạn sẽ SSH vào từ máy cá nhân hoặc máy công ty.\nName: workshop-sg-bastion-primary Description: Security group for bastion host VPC: primary-vpc Inbound Rules Loại truy cập Giao thức Cổng Nguồn SSH TCP 22 My IP (hoặc 0.0.0.0/0 nếu IP thay đổi) Outbound Rules Loại truy cập Giao thức Cổng Đích All traffic All All 0.0.0.0/0 (mặc định) 📌 Lưu ý:\nNên hạn chế SSH chỉ từ IP cụ thể để tăng cường bảo mật. Nếu bạn đang ở mạng không cố định (ví dụ: quán café, 4G\u0026hellip;), có thể tạm dùng 0.0.0.0/0, nhưng cần thay đổi lại khi triển khai thực tế. Cấu hình Security group cho Application Load Balancer Thông tin chung: Security Group này dùng cho Application Load Balancer (ALB) – nơi nhận các yêu cầu HTTP từ internet và chuyển tiếp đến các EC2 instances phía sau.\nName: workshop-sg-alb-primary Description: Security group for Application Load Balancer VPC: primary-vpc Inbound Rules Loại truy cập Giao thức Cổng Nguồn Mô tả HTTP TCP 80 0.0.0.0/0 HTTP from internet Outbound Rules Loại truy cập Giao thức Cổng Đích All traffic All All 0.0.0.0/0 (mặc định) 📌 Lưu ý:\nALB nên được đặt trong public subnet để có thể truy cập từ internet. Port 80 dùng cho HTTP – nếu dùng HTTPS, cần thêm port 443. Cấu hình Security group cho EC2-Application Thông tin chung: Security Group này dùng cho EC2 Application – nơi triển khai ứng dụng.\nServer sẽ chỉ:\nSSH được từ EC2 Bastion để tăng cường bảo mật.\nNhận yêu cầu HTTP từ ALB qua cổng 8080 (nơi ứng dụng lắng nghe).\nName: workshop-sg-app-primary\nDescription: Security group for application servers\nVPC: primary-vpc\n🔽 Inbound Rules Loại truy cập Giao thức Cổng Nguồn Mô tả SSH TCP 22 workshop-sg-bastion-primary SSH từ Bastion Host Custom TCP TCP 8080 workshop-sg-alb-primary Giao tiếp từ ALB tới ứng dụng 🔼 Outbound Rules Loại truy cập Giao thức Cổng Đích All traffic All All 0.0.0.0/0 (mặc định) 📌 Lưu ý:\nEC2 Application nên được đặt trong private subnet để tăng tính bảo mật. Chỉ mở các port thực sự cần thiết (22 và 8080 trong trường hợp này). Cấu hình Security group cho Primary Aurora Thông tin chung Security Group này được dùng để bảo vệ cụm Aurora Primary. Chỉ cho phép nhận kết nối từ các EC2 server thuộc nhóm workshop-sg-server-primary thông qua cổng 3306.\nName: workshop-sg-aurora-primary Description: Allows MySQL/Aurora access from workshop-sg-app-primary VPC: primary-vpc 🔽 Inbound Rules Loại truy cập Giao thức Cổng Nguồn Mô tả MySQL/Aurora TCP 3306 workshop-sg-app-primary (SG) Cho phép EC2 Application kết nối vào Aurora 🔼 Outbound Rules Loại truy cập Giao thức Cổng Đích Ghi chú All traffic All All 0.0.0.0/0 Để mặc định 📌 Lưu ý bảo mật:\nAurora nên được đặt trong private subnet để tránh truy cập trực tiếp từ Internet. Tuyệt đối không mở cổng 3306 ra Internet (0.0.0.0/0). Chỉ giới hạn truy cập từ Security Group EC2 application server. "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/3-createaurora/3.3-createauroraglobaldatabases/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/3-createaurora/3.3-createauroraglobaldatabases/",
 	"title": "Triển khai Global Database",
 	"tags": [],
 	"description": "",
 	"content": "\rChú ý: Thao tác này cần thực hiện tại Primary Region.\nTriển khai Aurora Global Database Truy cập RDS → Databases Chọn cụm workshop-aurora-primary-cluster Chọn Actions → Add region Global Database Settings Global database identifier: workshop-aurora-global-db AWS region: US East (N.Virginia) Cluster storage configuration option: Aurora Standard Instance Configuration Instance class: db.r6g.large ✓ Bật Create an Aurora Replica or Reader node in a different AZ Giúp tăng khả năng chịu lỗi và cân bằng tải đọc. Connectivity VPC: secondary-vpc DB subnet group: workshop-db-subnet-group-secondary Public access: No Security group: workshop-sg-aurora-secondary Availability Zone: us-east-1b Database port: 3306 Bật tính năng Read replica write forwarding Cho phép chuyển tiếp truy vấn ghi về Writer node khi kết nối vào Replica. Monitoring Bật Database Insight để theo dõi hiệu suất hoạt động cụm secondary. Nhấn Add region để bắt đầu triển khai. Quá trình tạo bắt đầu ⏳ Quá trình tạo Aurora Global Database có thể mất khoảng 15–20 phút.\nTạo thành công Sau khi hoàn tất, Aurora Global Database sẵn sàng hoạt động trên nhiều vùng địa lý.\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.4-createec2/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/2-prerequiste/2.1-region-primary/2.1.4-createec2/",
 	"title": "Tạo EC2 Instance",
 	"tags": [],
 	"description": "",
 	"content": "Truy cập giao diện EC2 Instance Mở trình duyệt và truy cập vào AWS EC2 Console. Ở thanh bên trái, chọn Instances. Nhấn Launch instance để bắt đầu tạo mới. Tạo EC2 Bastion Thông tin chung Name: workshop-bastion-primary AMI: Amazon Linux 2023 Instance type: t2.micro Key pair: aws-keypair.pem Network settings Thành phần Giá trị VPC primary-vpc Subnet primary-subnet-public1 Auto-assign Public IP Enable Security Group workshop-sg-bastion-primary Các thông tin còn lại để mặc định Nhấn Launch instance để khởi tạo Tạo EC2-Application Thông tin chung: Name: workshop-app-server-primary AMI: Amazon Linux 2023 Instance type: t2.micro Key pair: aws-keypair.pem Network settings Thành phần Giá trị VPC primary-vpc Subnet primary-subnet-private1 Auto-assign Public IP Disable Security Group workshop-sg-app-primary Các thông tin còn lại để mặc định và nhấn Launch instance Kiểm tra kết nối Kết nối đến EC2 Bastion Truy cập EC2 Console → chọn instance workshop-bastion-primary Nhấn Connect → chọn tab SSH Client Thực hiện kết nối bằng lệnh: ssh -i \u0026lt;PATH/keypair.pem\u0026gt; ec2-user@\u0026lt;IP_Public_Bastion\u0026gt; Chuyển file keypair của ứng dụng lên Bastion: scp -i \u0026lt;PATH/keypair.pem\u0026gt; \u0026lt;PATH/keypair.pem\u0026gt; ec2-user@\u0026lt;IP_Public_Bastion\u0026gt;:/home/ec2-user/\u0026lt;keypair.pem\u0026gt; SSH vào Bastion và kiểm tra sự tồn tại của file: ls Kết nối đến EC2 Bastion Trên Bastion, cấp quyền truy cập cho file keypair: chmod 400 \u0026lt;keypair.pem\u0026gt; Thực hiện kết nối đến EC2 Application (IP Private): ssh -i \u0026lt;keypair.pem\u0026gt; ec2-user@\u0026lt;IP_Private_AppServer\u0026gt; "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/4-deployprimay/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/4-deployprimay/",
 	"title": "Triển khai ứng dụng trên vùng chính",
 	"tags": [],
 	"description": "",
 	"content": "Sau khi cụm Aurora Cluster tại Primary Region được khởi tạo thành công, bước tiếp theo là triển khai ứng dụng để kết nối và khai thác cơ sở dữ liệu.\nTrong phần này, bạn sẽ thực hiện các công việc sau:\nThiết lập kết nối từ ứng dụng(EC2 instance) đến Aurora Cluster thông qua Writer Endpoint. Cài đặt và triển khai ứng dụng. Kiểm tra kết nối và đảm bảo ứng dụng hoạt động ổn định trên vùng chính. Việc triển khai trên Primary Region sẽ giúp đảm bảo hệ thống hoạt động ổn định trước khi mở rộng ra các vùng khác trong mô hình Aurora Global Database.\nNội dung hướng dẫn Tải cấu hình cho EC2 Triển khai ứng dụng "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/5-createproxy/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/5-createproxy/",
 	"title": "Triển khai RDS Proxy cho Aurora",
 	"tags": [],
 	"description": "",
 	"content": "Truy cập Vào giao diện RDS Console → Proxies → Create Proxy Proxy configuration Engine family: MariaDB and MySQL Proxy identifier: proxy-primary Idle client connection timeout: 30 minutes Target group configuration Database: workshop-aurora-primary-cluster Maximum connections: 100 Reader endpoint: Add reader endpoint 2️⃣ Tạo Secrets Manager Secrets Secret type: Credentials for Amazon RDS database User name: admin Password: WorkshopAurora123! Encryption key: aws/secretsmanager Database: workshop-aurora-primary-cluster Secret name: rds/test/aurora-mysql/primary/credentials Description: Credentials for Aurora Global Database primary Bỏ qua Rotation, nhấn Next → Store 3️⃣ Hoàn thiện cấu hình Proxy Client authentication: MySQL Caching Sha2 password IAM authentication: Not allowed Secrets: Chọn Secret vừa tạo Subnet group: Chọn tất cả subnet private Nhấn Create 4️⃣ Tạo Security Group cho Proxy Name: workshop-sg-proxy-primary VPC: primary-vpc Inbound rule:\nType: MySQL/Aurora Source: workshop-sg-app-primary 5️⃣ Cập nhật Security Group cho Aurora Security group workshop-sg-aurora-primary → Edit inbound rules Thêm rule:\nType: MySQL/Aurora Source: workshop-sg-proxy-primary 6️⃣ Gán Security Group cho Proxy Chọn Proxy Endpoint Thêm VPC Security Group: workshop-sg-proxy-primary 7️⃣ Cập nhật Security Group cho Aurora (bổ sung) Chọn Aurora cluster \u0026ndash;\u0026gt; Chọn Modify Thêm Security Group: workshop-sg-aurora-primary 8️⃣ Cấu hình kết nối ứng dụng qua Proxy Sử dụng Proxy Endpoint thay cho Aurora endpoint trong file application.properties. 9️⃣ Build và Khởi chạy ứng dụng Build lại ứng dụng: Build thành công và khởi chạy: "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/6-test/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/6-test/",
 	"title": "Kiểm thử Aurora Global Database",
 	"tags": [],
 	"description": "",
 	"content": "1️⃣ Kiểm thử replica cross-region SSH vào EC2-app (region chính) và kết nối MySQL qua Proxy endpoint (writer) SSH vào EC2-bastion (region phụ) và kết nối MySQL qua Read endpoint ➡️ Thực hiện ghi dữ liệu tại region chính và dùng lệnh SELECT ở region phụ để kiểm tra dữ liệu đã replicate.\n2️⃣ Kiểm tra khả năng tự động chuyển đổi writer (Failover nội vùng) Sử dụng Proxy endpoint để ứng dụng tự động chuyển từ writer sang reader nếu xảy ra sự cố. Kết nối ứng dụng tới Proxy endpoint (không kết nối trực tiếp tới writer endpoint).\nTiến hành ghi dữ liệu (INSERT).\n3️⃣ Kịch bản Failover 📌 Kịch bản 1: Mất kết nối 1 AZ (Node Writer bị xoá) Xóa một node writer trong cụm Aurora primary (giả lập mất kết nối 1 AZ). Xác nhận delete me và chờ.\nNode reader tự động chuyển thành writer. Ứng dụng vẫn có thể ghi tiếp mà không cần cập nhật lại endpoint, nhờ Proxy. 📌 Kịch bản 2: Mất kết nối giữa 2 region Tách secondary region khỏi Global Database (giả lập lỗi ở primary region). ➡️ Tại secondary region:\nVào secondary cluster → Actions → Remove from global database Chọn Remove and promote Sau khi hoàn tất: Cluster ở secondary region được promote thành độc lập, có writer riêng. Hoạt động đọc/ghi ở vùng phụ vẫn duy trì bình thường. 4️⃣ Giám sát (Monitoring) Chọn Aurora cluster → Tab Monitoring để theo dõi thông số.\nMột số thông số quan trọng: DatabaseConnections: Tổng số kết nối đến Aurora (có cả connection pooling).\nQueries: Tổng số truy vấn SQL thực hiện mỗi giây.\nSelectLatency / InsertLatency / UpdateLatency: Độ trễ của từng loại truy vấn.\nActiveTransactions: Tổng số giao dịch đang xử lý.\nThống kê chuyên biệt cho Global Database: AuroraGlobalDBReplicatedWriteIO: Số thao tác ghi replicate sang vùng phụ. AuroraGlobalDBDataTransferBytes: Dữ liệu (log) chuyển sang vùng phụ (byte). AuroraGlobalDBReplicationLag: Độ trễ replicate (ms) giữa primary và secondary region. "
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/7-monitoring/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/7-monitoring/",
 	"title": "Monitoring Aurora Cluster",
 	"tags": [],
 	"description": "",
 	"content": "1️⃣ Truy cập Monitoring Vào Aurora Cluster Chọn tab Monitoring 2️⃣ Các thông số quan trọng 🔹 DatabaseConnections Tổng số kết nối hiện tại đến Aurora (bao gồm cả connection pooling). 🔹 Queries Tổng số truy vấn SQL (SELECT, INSERT, UPDATE\u0026hellip;) thực hiện mỗi giây. 🔹 Latency SelectLatency / InsertLatency / UpdateLatency Độ trễ trung bình của từng loại truy vấn. 🔹 ActiveTransactions Tổng số giao dịch đang được xử lý tại thời điểm hiện tại. 3️⃣ Các chỉ số chuyên biệt khác (nên giám sát) AuroraGlobalDBReplicatedWriteIO\nSố lượng thao tác ghi replicate sang vùng phụ.\nAuroraGlobalDBDataTransferBytes\nLượng dữ liệu (redo log) đang replicate sang vùng phụ (tính bằng byte).\nAuroraGlobalDBReplicationLag\nĐộ trễ replicate từ primary sang secondary region (tính bằng mili giây).\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/8-snapshot/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/8-snapshot/",
 	"title": "Snapshot &amp; Restore",
 	"tags": [],
 	"description": "",
 	"content": "Amazon RDS cho phép tạo bản Snapshot toàn bộ cụm Aurora (không phải từng database riêng lẻ). Bản Snapshot lưu toàn bộ ổ đĩa lưu trữ của cụm, bao gồm cả tệp tạm thời, nên thời gian tạo phụ thuộc vào kích thước và trạng thái dữ liệu.\nTạo Snapshot Vào RDS Console Chọn cluster hoặc instance cần Snapshot Trong cửa sổ Take DB Snapshot: Snapshot type: DB Cluster Name: Đặt tên cho Snapshot Sau khi tạo thành công: Khôi phục từ Snapshot Trong bảng điều khiển RDS, chọn mục Snapshots Chọn Snapshot muốn phục hồi Nhấn Actions → Restore Snapshot Trong trang Restore Snapshot: Chọn phiên bản Aurora engine (mặc định là giống cụm gốc). Đặt DB instance identifier (Amazon sẽ tự tạo DB cluster identifier tương ứng). Tùy chỉnh các thông số khác nếu cần. 📖 Tham khảo chi tiết tại mục Cluster settings in Aurora DB.\nNhấn Restore DB Cluster để bắt đầu quá trình khôi phục. Khi hoàn tất, một Aurora cluster mới sẽ được khởi tạo từ bản Snapshot. ✅ Bạn có thể sử dụng Snapshot như một cơ chế backup thủ công, hoặc để tạo bản sao môi trường sản xuất nhanh chóng.\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/9-clearresource/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/9-clearresource/",
 	"title": "Xóa Tài Nguyên",
 	"tags": [],
 	"description": "",
 	"content": "Xóa RDS Proxy (Primary Region) Vào mục Proxies, chọn Proxy cần xóa. Chọn Actions → Delete. Nhập delete me → nhấn Delete. Xóa NAT Gateway (Primary Region) Chọn NAT Gateway liên quan đến workshop. Chọn Actions → Delete NAT Gateway. Nhập delete và nhấn Delete. Xóa Elastic IP Chọn Elastic IP liên quan đến workshop. Chọn Actions → Release Elastic IP address. Nhấn Release. Xóa Aurora Database (Primary Region) Xóa lần lượt node → instance → cluster. Nếu muốn, tạo Final Snapshot hoặc bỏ qua. Xóa Aurora Database (Secondary Region) Xóa lần lượt node → instance → cluster. Xóa Subnet Group Primary Region:\nVào Subnet Groups, chọn subnet liên quan đến workshop. Chọn Delete. Secondary Region:\nXóa EC2 Instances Primary Region:\nChọn EC2 instance liên quan workshop. Instance State → Terminate Instance. Secondary Region:\nXóa VPC Secondary Region:\nChọn VPC liên quan đến workshop. Actions → Delete VPC. Nhập delete và nhấn Delete. Primary Region:\nXóa Application Load Balancer (Primary Region) Chọn ALB liên quan workshop. Actions → Delete load balancer. Nhập confirm và nhấn Delete. Xóa Target Group (Primary Region) Chọn Target Group liên quan workshop. Actions → Delete. ✅ Sau khi hoàn tất, bạn đã giải phóng toàn bộ tài nguyên AWS phát sinh trong workshop.\n"
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/categories/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/categories/",
 	"title": "Categories",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "https://viethung0901.github.io/workshop_RDS-Multi-Master-Aurora-Global-Database/vi/tags/",
+	"uri": "https://viethung0901.github.io/workshop_RDS-Aurora-Global-Database/vi/tags/",
 	"title": "Tags",
 	"tags": [],
 	"description": "",
